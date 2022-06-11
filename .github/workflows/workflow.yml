@@ -8,8 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
+      
       - run: which pulumi
+      
+      - run: pulumi --version
+      
+      - run: yarn install
       
       - name: Create local stack
         run: |
@@ -18,10 +22,12 @@ jobs:
         env:
           PULUMI_CONFIG_PASSPHRASE: not-a-secret
       
-      - uses: ./
+      - uses: pulumi/actions@v3
         env:
           PULUMI_CONFIG_PASSPHRASE: not-a-secret
         with:
-          command: ${{ matrix.command }}
+          command: preview
           cloud-url: file://~
           stack-name: dev
+          
+      - run: pulumi --version
