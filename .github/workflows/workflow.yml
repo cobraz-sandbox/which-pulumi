@@ -11,7 +11,7 @@ jobs:
       
       - run: which pulumi
       
-      - run: pulumi --version
+      - run: pulumi version
       
       - run: yarn install
       
@@ -30,4 +30,4 @@ jobs:
           cloud-url: file://~
           stack-name: dev
           
-      - run: pulumi --version
+      - run: pulumi version
