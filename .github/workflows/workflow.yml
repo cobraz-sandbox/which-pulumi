@@ -10,3 +10,18 @@ jobs:
       - uses: actions/checkout@v3
 
       - run: which pulumi
+      
+      - name: Create local stack
+        run: |
+          pulumi login --local
+          pulumi stack init dev
+        env:
+          PULUMI_CONFIG_PASSPHRASE: not-a-secret
+      
+      - uses: ./
+        env:
+          PULUMI_CONFIG_PASSPHRASE: not-a-secret
+        with:
+          command: ${{ matrix.command }}
+          cloud-url: file://~
+          stack-name: dev
